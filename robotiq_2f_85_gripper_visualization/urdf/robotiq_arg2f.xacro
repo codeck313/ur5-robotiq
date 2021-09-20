@@ -1,6 +1,15 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="robotiq_arg2f_base_link" params="prefix">
+  <xacro:macro name="robotiq_arg2f_base_link" params="prefix connected_to">
+    
+    <joint name="${prefix}_tool_joint" type="fixed">
+      <!-- The parent link must be read from the robot model it is attached to. -->
+      <parent link="${connected_to}"/>
+      <child link="${prefix}robotiq_arg2f_base_link"/>
+      <!-- The tool is directly attached to the flange. -->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    
     <link name="${prefix}robotiq_arg2f_base_link">
       <inertial>
         <origin xyz="8.625E-08 -4.6583E-06 0.03145" rpy="0 0 0" />
